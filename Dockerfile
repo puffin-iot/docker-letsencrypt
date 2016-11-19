@@ -21,11 +21,19 @@ RUN rm /etc/nginx/conf.d/*.conf
 ADD nginx/nginx.conf /etc/nginx/
 ADD nginx/letsencrypt.conf /etc/nginx/conf.d/
 
+# Install the cloudflare DNS hooks
+RUN \
+  apt-get install -yy python-dev python-pip libffi-dev bc curl jq && \
+  git clone https://github.com/puffin-iot/dehydrated && cd dehydrated && mkdir hooks && \
+  git clone https://github.com/puffin-iot/letsencrypt-cloudflare-hook hooks/cloudflare && \
+  pip install -r hooks/cloudflare/requirements-python-2.txt
+
 # Add some helper scripts for getting and saving scripts later
 ADD fetch_certs.sh /letsencrypt/
 ADD save_certs.sh /letsencrypt/
 ADD recreate_pods.sh /letsencrypt/
 ADD refresh_certs.sh /letsencrypt/
+ADD refresh_certs_cloudflare.sh /letsencrypt/
 ADD start.sh /letsencrypt/
 
 ADD nginx/letsencrypt.conf /etc/nginx/snippets/letsencrypt.conf

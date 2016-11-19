@@ -41,7 +41,7 @@ cat << EOF | kubectl $ACTION -f -
    "proxycert": "$CERT",
    "proxykey": "$KEY",
    "tls.crt": "$CERT",
-   "tls.key": "$KEY",   
+   "tls.key": "$KEY",
    "dhparam": "$DHPARAM"
  }
 }

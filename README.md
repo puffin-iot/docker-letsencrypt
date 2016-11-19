@@ -1,3 +1,16 @@
+# Warning
+
+This has been modified to utilise the DNS check, instead of the standard http one. It currently only works with cloudflare.
+
+To use, simply set the CF_KEY and CF_EMAIL and it'll do the rest.
+
+We use in production but do not recommend you do unless you read the source.
+
+It uses the following two repositories to generate the certs.
+
+- https://github.com/lukas2511/dehydrated
+- https://github.com/kappataumu/letsencrypt-cloudflare-hook
+
 # letsencrypt-kubernetes
 
 A docker image suitable for requesting new certificates from letsencrypt,
@@ -50,3 +63,5 @@ kubectl exec -it <pod> -- bash -c 'EMAIL=fred@fred.com DOMAINS=example.com foo.e
  - NAMESPACE - the namespace under which the secrets should be available
  - CRON_FREQUENCY - the 5-part frequency of the cron job. Default is a random
    time in the range `0-59 0-23 1-27 * *`
+ - CF_KEY - your Cloudflare token
+ - CF_EMAIL - your Cloudflare email
